@@ -10,4 +10,4 @@ var app = builder.Build();
 app.UseHangfire();
 app.MapGroup("/jobs").MapJobsApi();
 
-app.Run();
+app.Run("http://localhost:5000");

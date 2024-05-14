@@ -8,26 +8,24 @@ public static class RecurringJobs
     {
         RecurringJob.AddOrUpdate(
             "RecurringJobExample",
-            () => RecurringJobExampleAsync(),
+            () => RecurringJobExample(),
             Cron.Minutely()
         );
 
         RecurringJob.AddOrUpdate(
             "RecurringJobCRONExample",
-            () => RecurringCRONJobExampleAsync(),
+            () => RecurringCRONJobExample(),
             "*/2 * * * *"
         );
     }
 
-    public static Task RecurringJobExampleAsync()
+    public static void RecurringJobExample()
     {
         Console.WriteLine($"{DateTime.Now} - RecurringJob");
-        return Task.CompletedTask;
     }
 
-    public static Task RecurringCRONJobExampleAsync()
+    public static void RecurringCRONJobExample()
     {
         Console.WriteLine($"{DateTime.Now} - RecurringCRONJob");
-        return Task.CompletedTask;
     }
 }
