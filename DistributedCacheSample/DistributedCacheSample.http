@@ -1,0 +1,4 @@
+@DistributedCacheSample_HostAddress = http://localhost:5000
+
+GET {{DistributedCacheSample_HostAddress}}/time-cached
+###
