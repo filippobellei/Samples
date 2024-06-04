@@ -20,9 +20,9 @@ var jwtDescriptor = new JwtSecurityToken(
     issuer: "https://localhost",
     audience: "https://localhost",
     signingCredentials: new SigningCredentials(
-    key: new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
-    algorithm: SecurityAlgorithms.HmacSha512Signature
-)
+        key: new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+        algorithm: SecurityAlgorithms.HmacSha512Signature
+    )
 );
 var jwt = jwtHandler.WriteToken(jwtDescriptor);
 
