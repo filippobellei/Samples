@@ -1,0 +1,15 @@
+@JWTAuthSample_HostAddress = http://localhost:5000
+
+POST {{JWTAuthSample_HostAddress}}/login
+Content-Type: application/json
+
+{
+    "email": "sample@localhost.com",
+    "password": "sample"
+}
+
+###
+
+GET {{JWTAuthSample_HostAddress}}
+Authorization: Bearer
+###
