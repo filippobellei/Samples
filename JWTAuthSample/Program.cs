@@ -3,6 +3,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
 
 var key = "rfx4gIaRcW5iKMl3/LzOFdRqzilmGSfovYcJ5U/PJSSr3oebqyhz0fC1HSrIXYtVUr0ZtJ2";
 var builder = WebApplication.CreateBuilder();
@@ -29,7 +30,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapGet("/", () => "Hello World!")
-    .RequireAuthorization();
+    .RequireAuthorization(new AuthorizeAttribute { Roles = "admin" });
 
 app.MapPost("/login", (LoginRequest request, TokenGenerator tokenGenerator) =>
 {

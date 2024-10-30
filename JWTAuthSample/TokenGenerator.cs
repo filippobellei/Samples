@@ -1,6 +1,6 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
 namespace JWTAuthSample;
@@ -9,26 +9,26 @@ public class TokenGenerator
 {
     public string GenerateToken(string email)
     {
-        var tokenHandler = new JwtSecurityTokenHandler();
+        var tokenHandler = new JsonWebTokenHandler();
         var key = "rfx4gIaRcW5iKMl3/LzOFdRqzilmGSfovYcJ5U/PJSSr3oebqyhz0fC1HSrIXYtVUr0ZtJ2";
 
-        var claims = new Claim[]
+        var jwtDescriptor = new SecurityTokenDescriptor
         {
-            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new(JwtRegisteredClaimNames.Email, email)
-        };
-
-        var jwtDescriptor = new JwtSecurityToken(
-            claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(60),
-            issuer: "https://localhost",
-            audience: "https://localhost",
-            signingCredentials: new SigningCredentials(
+            Subject = new ClaimsIdentity(
+            [
+                new (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new (JwtRegisteredClaimNames.Email, email),
+                new ("role", "admin")
+            ]),
+            Expires = DateTime.UtcNow.AddMinutes(60),
+            Issuer = "https://localhost",
+            Audience = "https://localhost",
+            SigningCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
                 SecurityAlgorithms.HmacSha512Signature
             )
-        );
+        };
 
-        return tokenHandler.WriteToken(jwtDescriptor);
+        return tokenHandler.CreateToken(jwtDescriptor);
     }
 }

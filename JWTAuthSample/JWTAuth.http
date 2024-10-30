@@ -12,4 +12,5 @@ Content-Type: application/json
 
 GET {{JWTAuthSample_HostAddress}}
 Authorization: Bearer
+
 ###
